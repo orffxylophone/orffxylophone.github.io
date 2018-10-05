@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+<body>
+<canvas id="gameCanvas" width="800" height="600"> </canvas>
+<script>
+var canvas;
+var canvasContext;
+var mouseX = 0;
+var gap = 30;
+var yGap = 100;
+var keyWidth = 60;
+var keyHeight = 400;
+var cKeyClick = false;
+var dKeyClick = false;
+var eKeyClick = false;
+var fKeyClick = false;
+var gKeyClick = false;
+var aKeyClick = false;
+var bKeyClick = false;
+var ccKeyClick = false;
+
+function calculateMousePos(evt){
+  var rect = canvas.getBoundingClientRect();
+  var root = document.documentElement;
+  var mouseX = evt.clientX - rect.left - root.scrollLeft;
+  var mouseY = evt.clientY - rect.top - root.scrollTop;
+  return {
+    x:mouseX,
+    y:mouseY
+  };
+}
+function handleMouseClick(evt) {
+  if(mouseX < gap + keyWidth && mouseX > gap){
+    if (!cKeyClick){
+      cKeyClick = true;
+    }
+    else if (cKeyClick){
+      cKeyClick = false;
+    }
+  }
+  else if(mouseX < 2*gap + 2*keyWidth && mouseX > 2*gap + keyWidth){
+    if (!dKeyClick){
+      dKeyClick = true;
+    }
+    else if (dKeyClick){
+      dKeyClick = false;
+    }
+  }
+  else if(mouseX < 3*gap + 3*keyWidth && mouseX > 3*gap + 2*keyWidth){
+    if (!eKeyClick){
+      eKeyClick = true;
+    }
+    else if (eKeyClick){
+      eKeyClick = false;
+    }
+  }
+  else if(mouseX < 4*gap + 4*keyWidth && mouseX > 4*gap + 3*keyWidth){
+    if (!fKeyClick){
+      fKeyClick = true;
+    }
+    else if (fKeyClick){
+      fKeyClick = false;
+    }
+  }
+  else if(mouseX < 5*gap + 5*keyWidth && mouseX > 5*gap + 4*keyWidth){
+    if (!gKeyClick){
+      gKeyClick = true;
+    }
+    else if (gKeyClick){
+      gKeyClick = false;
+    }
+  }
+  else if(mouseX < 6*gap + 6*keyWidth && mouseX > 6*gap + 5*keyWidth){
+    if (!aKeyClick){
+      aKeyClick = true;
+    }
+    else if (aKeyClick){
+      aKeyClick = false;
+    }
+  }
+  else if(mouseX < 7*gap + 7*keyWidth && mouseX > 7*gap + 6*keyWidth){
+    if (!bKeyClick){
+      bKeyClick = true;
+    }
+    else if (bKeyClick){
+      bKeyClick = false;
+    }
+  }
+  else if(mouseX < 8*gap + 8*keyWidth && mouseX > 8*gap + 7*keyWidth){
+    if (!ccKeyClick){
+      ccKeyClick = true;
+    }
+    else if (ccKeyClick){
+      ccKeyClick = false;
+    }
+  }
+}
+window.onload = function() {
+  canvas = document.getElementById('gameCanvas');
+  canvasContext = canvas.getContext('2d');
+    var framesPerSecond = 10;
+    setInterval(function(){
+      drawEverything();
+    }, 1000/framesPerSecond);
+    canvas.addEventListener('mousedown', handleMouseClick);
+    canvas.addEventListener('mousemove',
+      function(evt){
+      var mousePos = calculateMousePos(evt);
+      mouseX = mousePos.x;
+      //console.log(mouseX);
+    });
+  }
+  function drawEverything(){
+    colourRect(0,0,canvas.width,canvas.height,'white');//background
+    if(!cKeyClick){
+      colourRect(gap, yGap, keyWidth, keyHeight, 'brown'); //first key
+    }
+    if(!dKeyClick){
+      colourRect(2*gap + keyWidth, yGap, keyWidth, keyHeight, 'brown'); //2nd key
+    }
+    if(!eKeyClick){
+      colourRect(3*gap + 2*keyWidth, yGap, keyWidth, keyHeight, 'brown'); //3rd key
+    }
+    if(!fKeyClick){
+      colourRect(4*gap + 3*keyWidth, yGap, keyWidth, keyHeight, 'brown'); //4th key
+    }
+    if(!gKeyClick){
+      colourRect(5*gap + 4*keyWidth, yGap, keyWidth, keyHeight, 'brown'); //5th key
+    }
+    if(!aKeyClick){
+      colourRect(6*gap + 5*keyWidth, yGap, keyWidth, keyHeight, 'brown'); //6th key
+    }
+    if(!bKeyClick){
+      colourRect(7*gap + 6*keyWidth, yGap, keyWidth, keyHeight, 'brown'); //7th key
+    }
+    if(!ccKeyClick){
+      colourRect(8*gap + 7*keyWidth, yGap, keyWidth, keyHeight, 'brown'); //8th key
+    }
+    colourText("C", "60px Arial", "center", "white", gap + keyWidth/2,canvas.height/2);
+    colourText("D", "60px Arial", "center", "white", 2*gap + 3*keyWidth/2,canvas.height/2);
+    colourText("E", "60px Arial", "center", "white", 3*gap + 5*keyWidth/2,canvas.height/2);
+    colourText("F", "60px Arial", "center", "white", 4*gap + 7*keyWidth/2,canvas.height/2);
+    colourText("G", "60px Arial", "center", "white", 5*gap + 9*keyWidth/2,canvas.height/2);
+    colourText("A", "60px Arial", "center", "white", 6*gap + 11*keyWidth/2,canvas.height/2);
+    colourText("B", "60px Arial", "center", "white", 7*gap + 13*keyWidth/2,canvas.height/2);
+    colourText("C", "60px Arial", "center", "white", 8*gap + 15*keyWidth/2,canvas.height/2);
+  }
+  function colourRect(leftX, topY, width, height, drawColour){
+    canvasContext.fillStyle = drawColour;
+    canvasContext.fillRect(leftX,topY,width,height);
+  }
+  function colourText(message,font,textAlign,colour,posX,posY){
+    canvasContext.fillStyle = colour;
+    canvasContext.font=font;
+    canvasContext.textAlign=textAlign;
+    canvasContext.fillText(message, posX, posY);
+  }
+</script>
+</body>
+</html>
